@@ -7,7 +7,7 @@ from datetime import datetime
 
 telemetria = open('telemetria.csv', 'w')
 writer = csv.writer(telemetria, delimiter=',')
-telemetria.write('Hora, Latitud, Longitud, Altura, Nivell CO, Nivell LPG')
+telemetria.write('Hora, Latitud, Longitud, Altura, Nivell CO')
 telemetria.write('\n')
 
 connection_string = 'udp:192.168.1.100:14550'
@@ -19,8 +19,8 @@ vehicle = connect(connection_string, wait_ready=True)
         perc = mq.MQPercentage()
         loc = vehicle.location.global_frame
         time = datetime.now().time()
-        print("%s, %s, %s, %s, %s, %s" % (time,loc.lat,loc.lon,loc.alt,perc["GAS_LPG"], perc["CO"]))
-        data = np.asarray([time,loc.lat, loc.lon, loc.alt,perc["GAS_LPG"], perc["CO"]])
+        print("%s, %s, %s, %s, %s" % (time,loc.lat,loc.lon,loc.alt, perc["CO"]))
+        data = np.asarray([time,loc.lat, loc.lon, loc.alt, perc["CO"]])
         writer.writerow(data)
 
 
